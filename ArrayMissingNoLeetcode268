@@ -1,0 +1,79 @@
+TC=O(N^2)
+
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+    int n=nums.size();
+    for(int i=1;i<=n;i++)
+    {
+        bool flag=false;
+        for(int ele:nums)
+        {
+            if(ele==i)
+            {
+                flag=true;
+                break;
+            }
+        }
+        if(flag==false) return i;
+    }
+    return 212312;
+    }
+    };
+
+
+TC=(nlogn)
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+    int n=nums.size();
+    sort(nums.begin(),nums.end());
+    for(inti=0;i<n;i++)
+    {
+        if(i!=arr[i]) return i;
+    }
+    return n;
+    }
+
+
+TC=O(n);
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+       int n=nums.size();
+       int zero_num=n*(n+1)/2;
+       int sum=0;
+       for(int i=0;i<n;i++)
+       {
+        sum=sum+nums[i];
+       }
+       return{(zero_num-sum)};
+    }
+};
+
+
+
+TC WILL BE O(n) but SC WILL increase which means Space complexity
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        int n = nums.size();
+
+        // Boolean array of size n+1
+        vector<bool> present(n + 1, false);
+
+        // Mark all numbers that are present
+        for (int num : nums) {
+            present[num] = true;
+        }
+
+        // Find the number that was never marked
+        for (int i = 0; i <= n; i++) {
+            if (present[i] == false) {
+                return i;
+            }
+        }
+
+        return -1; // Never reached
+    }
+};
