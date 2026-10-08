@@ -1,0 +1,33 @@
+class Solution {
+public:
+
+    int sumSquare(int n) {
+        int sum = 0;
+
+        while (n > 0) {
+            int digit = n % 10;
+            sum = sum + digit * digit;
+            n = n / 10;
+        }
+
+        return sum;
+    }
+
+    bool isHappy(int n) {
+
+        int slow = n;
+        int fast = n;
+
+        do {
+            // slow moves 1 step
+            slow = sumSquare(slow);
+
+            // fast moves 2 steps
+            fast = sumSquare(fast);
+            fast = sumSquare(fast);
+
+        } while (slow != fast);
+
+        return slow == 1;
+    }
+};
