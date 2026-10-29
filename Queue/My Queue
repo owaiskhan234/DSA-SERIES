@@ -1,0 +1,87 @@
+#include<iostream>
+#include<queue>
+using namespace std;
+void push(int val,int idx,queue<int>&qu)
+{
+   int n=qu.size();
+   for(int i=0;i<idx;i++)
+   {
+      int temp=qu.front();;
+   qu.pop();
+   qu.push(temp);
+   }
+   qu.push(val);
+   for(int i=0;i<n-idx;i++)
+   {
+    qu.push(qu.front());
+    qu.pop();
+   }
+  
+}
+void print(queue<int>&qu)
+{
+  int n=qu.size();
+  for(int i=0;i<n;i++)
+  {
+    
+    cout<<qu.front()<<" "<<endl;
+    int st=qu.front();
+    qu.pop();
+    qu.push(st);
+  }
+}
+void pop(int val,int idx,queue<int>&qu)
+{
+   int n=qu.size();
+
+   for(int i=0;i<idx;i++)
+   {
+      int temp=qu.front();;
+      qu.pop();
+      qu.push(temp);
+   }
+
+   qu.pop();
+
+   for(int i=0;i<n-idx-1;i++)
+   {
+    qu.push(qu.front());
+    qu.pop();
+   }
+  
+}
+
+int get (int idx, queue<int>& qu)
+{
+  int n=qu.size();
+
+   for(int i=0;i<idx;i++)
+   {
+      int temp=qu.front();;
+      qu.pop();
+      qu.push(temp);
+   }
+
+   int val=qu.front();
+
+   for(int i=0;i<n-idx;i++)
+   {
+    qu.push(qu.front());
+    qu.pop();
+   }   
+   return val;                     
+}
+
+int main()
+{ 
+   queue<int>qu;
+  qu.push(10);
+  qu.push(20);
+  qu.push(30);
+  qu.push(40);
+  print(qu);
+  push(29,2,qu);
+  cout<<endl;
+  print(qu);
+  
+}
