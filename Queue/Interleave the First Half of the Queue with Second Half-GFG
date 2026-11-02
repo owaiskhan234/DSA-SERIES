@@ -1,0 +1,45 @@
+class Solution {
+public:
+    void rearrangeQueue(queue<int>& q) {
+        stack<int> st;
+        int n = q.size();
+
+        // Step 1: Push the first half into the stack
+        for (int i = 0; i < n / 2; i++) {
+            st.push(q.front());
+            q.pop();
+        }
+
+        // Step 2: Push the stack elements back into the queue
+        while (!st.empty()) {
+            q.push(st.top());
+            st.pop();
+        }
+
+        // Step 3: Move the first half into the stack again
+        for (int i = 0; i < n / 2; i++) {
+            st.push(q.front());
+            q.pop();
+        }
+
+        // Step 4: Interleave the two halves
+        while (!st.empty()) {
+            q.push(st.top());
+            st.pop();
+
+            q.push(q.front());
+            q.pop();
+        }
+
+        // Step 5: Reverse the queue using the stack
+        for (int i = 0; i < n; i++) {
+            st.push(q.front());
+            q.pop();
+        }
+
+        while (!st.empty()) {
+            q.push(st.top());
+            st.pop();
+        }
+    }
+};
