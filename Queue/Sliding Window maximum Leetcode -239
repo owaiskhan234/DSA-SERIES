@@ -1,0 +1,48 @@
+
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& arr, int k) {
+        int n = arr.size();
+
+        deque<int> dq;  // Stores indices of elements
+        vector<int> ans;
+
+        // First window
+        for (int i = 0; i < k; i++) {
+
+            // Remove smaller elements from the back
+            while (!dq.empty() && arr[dq.back()] < arr[i]) {
+                dq.pop_back();
+            }
+
+            dq.push_back(i);
+        }
+
+        // Maximum of the first window
+        ans.push_back(arr[dq.front()]);
+
+        // Process the remaining windows
+        for (int i = k; i < n; i++) {
+
+            int j = i - k + 1;  // Start index of current window
+
+            // Remove indices outside the current window
+            while (!dq.empty() && dq.front() < j) {
+                dq.pop_front();
+            }
+
+            // Remove smaller elements from the back
+            while (!dq.empty() && arr[dq.back()] < arr[i]) {
+                dq.pop_back();
+            }
+
+            // Insert the current element's index
+            dq.push_back(i);
+
+            // Store the maximum of the current window
+            ans.push_back(arr[dq.front()]);
+        }
+
+        return ans;
+    }
+};
