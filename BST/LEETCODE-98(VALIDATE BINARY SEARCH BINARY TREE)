@@ -1,0 +1,44 @@
+class Solution {
+public:
+    // Method 2
+    class Triplet{
+    public:
+        long long max;
+        long long min;
+        bool isBST;
+    };
+    Triplet solve(TreeNode* root){
+        if(root == NULL) return {LLONG_MIN,LLONG_MAX,true};
+        Triplet left = solve(root->left);
+        Triplet right = solve(root->right);
+        long long val = root->val;
+        long long mx = max(val,max(left.max,right.max));
+        long long mn = min(val,min(left.min,right.min));
+        bool isBST = (val > left.max && val < right.min && left.isBST && right.isBST);
+        return {mx,mn,isBST};
+    }
+    bool isValidBST(TreeNode* root) {
+        return solve(root).isBST;
+    }
+};
+//     void inorder(TreeNode* root, vector<int>& ans) {
+//         if(root == NULL) return;
+
+//         inorder(root->left, ans);
+//         ans.push_back(root->val);
+//         inorder(root->right, ans);
+//     }
+
+//     bool isValidBST(TreeNode* root) {
+//         vector<int> ans;
+//         inorder(root, ans);
+
+//         for(int i = 1; i < ans.size(); i++) {
+//             if(ans[i] <= ans[i-1]) {
+//                 return false;
+//             }
+//         }
+
+//         return true;
+//     }
+// };
